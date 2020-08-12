@@ -186,4 +186,27 @@ class LineRotCompressView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : LineRotCompressView) {
+
+        private val animator : Animator = Animator(view)
+        private val lrc : LineRotCompressSquare = LineRotCompressSquare(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            lrc.draw(canvas, paint)
+            animator.animate {
+                lrc.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            lrc.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
