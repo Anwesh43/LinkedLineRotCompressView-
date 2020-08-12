@@ -211,4 +211,13 @@ class LineRotCompressView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : LineRotCompressView {
+            val view : LineRotCompressView = LineRotCompressView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
