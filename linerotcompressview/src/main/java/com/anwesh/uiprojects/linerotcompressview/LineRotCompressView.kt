@@ -33,22 +33,25 @@ fun Canvas.drawLineRotCompress(scale : Float, w : Float, h : Float, paint : Pain
     val sf1 : Float = sf.divideScale(0, parts)
     val sf2 : Float = sf.divideScale(1, parts)
     val sf3 : Float = sf.divideScale(2, parts)
-    val sf4 : Float = sf.divideScale(3, parts)
     save()
     translate(w / 10 + (w / 2 - w / 10) * sf2, 0f)
-    rotate(90f * sf3)
     drawLine(0f, -size * sf1, 0f, size * sf1, paint)
-    drawRect(RectF(-size * sf4, -size, 0f, size), paint)
+    drawRect(RectF(-size * sf3, -size, 0f, size), paint)
     restore()
 }
 
 fun Canvas.drawBiLineRotCompress(scale : Float, w : Float, h : Float, paint : Paint) {
+    save()
+    translate(w / 2, h / 2)
+    rotate(90f * scale.sinify().divideScale(3, parts))
     for (j in 0..1) {
         save()
         scale(1f - 2 * j, 1f)
+        translate(-w / 2, 0f)
         drawLineRotCompress(scale, w, h, paint)
         restore()
     }
+    restore()
 }
 
 fun Canvas.drawLRCNode(i : Int, scale : Float, paint : Paint) {
